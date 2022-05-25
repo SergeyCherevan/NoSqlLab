@@ -1,0 +1,53 @@
+<!-- Modal -->
+<div class="modal fade" id="authorization-form-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{formTitle}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">
+
+        <form name="login" *ngIf="!isLoginOrReg">
+          <div class="mb-3">
+            <label for="username" class="form-label">{{loginStr}}</label>
+            <input type="text" class="form-control" id="login">
+            <span for="username" class="text-danger" id="loginErr"></span>
+          </div>
+          <div class="mb-3">
+            <label for="password" class="form-label">{{passwordStr}}</label>
+            <input type="password" class="form-control" id="password">
+            <span for="password" class="text-danger" id="passErr"></span>
+          </div>
+        </form>
+
+        <form name="registration" *ngIf="isLoginOrReg">
+          <div class="mb-3">
+            <label for="username" class="form-label">{{loginStr}}</label>
+            <input type="text" class="form-control" id="login">
+            <span for="username" class="text-danger" id="loginErr"></span>
+          </div>
+          <div class="mb-3">
+            <label for="password" class="form-label">{{passwordStr}}</label>
+            <input type="password" class="form-control" id="password">
+            <span for="password" class="text-danger" id="passErr"></span>
+          </div>
+          <div class="mb-3">
+            <label for="confirmPassword" class="form-label">{{confirmPasswordStr}}</label>
+            <input type="password" class="form-control" id="confirmPassword">
+            <span for="confirmPassword" class="text-danger" id="confPassErr"></span>
+          </div>
+        </form>
+
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="switchForm()">{{formSwitchingButton}}</button>
+        <button type="button" class="btn btn-primary">{{formSubmitButton}}</button>
+      </div>
+
+    </div>
+  </div>
+</div>
