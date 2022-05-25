@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UserApiModel } from '../models/user-api.model';
 
 @Component({
   selector: 'authorization-form',
@@ -6,6 +7,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./authorization-form.component.scss']
 })
 export class AuthorizationFormComponent implements OnInit {
+
+  formData = {
+    username: "",
+    password: "",
+    confirmPassword: "",
+  };
 
   isLoginOrReg: boolean = false;
   loginOrRegTitle: string[] = ["Вход", "Регистрация"];
@@ -23,9 +30,13 @@ export class AuthorizationFormComponent implements OnInit {
     return this.loginOrRegTitle[Number(!this.isLoginOrReg)];
   }
 
-  loginStr: string = "Логин";
+  usernameStr: string = "Имя пользователя";
   passwordStr: string = "Пароль";
   confirmPasswordStr: string = "Подтвердите пароль";
+
+  uncorrectUsernameStr: string = "Некорректное имя пользователя. Не менее 4 буквенно-цифровых символов";
+  uncorrectPasswordStr: string = "Некорректный пароль. Не менее 4 буквенно-цифровых символов";
+  uncorrectConfirmPasswordStr: string = "Пароли не совпадают";
 
   constructor() { }
 
@@ -33,5 +44,9 @@ export class AuthorizationFormComponent implements OnInit {
 
   switchForm(): void {
     this.isLoginOrReg = !this.isLoginOrReg;
+  }
+
+  submitForm(): void {
+    alert("Отправка формы");
   }
 }

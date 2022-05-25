@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NoSqlLab.Model;
@@ -38,6 +39,7 @@ namespace NoSqlLab.Controllers
 
         [HttpPost]
         [Route("add")]
+        [Authorize]
         public IActionResult Add(NoteApiModel nam)
         {
             User user = userRepository.GetByUsername(User.Identity.Name);
@@ -54,6 +56,7 @@ namespace NoSqlLab.Controllers
 
         [HttpPost]
         [Route("edit")]
+        [Authorize]
         public IActionResult Edit(EditNoteModel enm)
         {
             User user = userRepository.GetByUsername(User.Identity.Name);
@@ -70,9 +73,18 @@ namespace NoSqlLab.Controllers
 
         [HttpDelete]
         [Route("delete")]
+        [Authorize]
         public IActionResult Delete(string id)
         {
-            noteRepository.Delete(new Guid(id));
+            User user = userRepository.GetByUsername(User.Identity.Name);
+            Note note = noteRepository.GetById(new Guid(id));
+
+            if (note.UserId != user.Id)
+            {
+                return BadRequest("This note is not yours");
+            }
+
+            noteRepository.Delete(note.Id);
             return Ok();
         }
     }
