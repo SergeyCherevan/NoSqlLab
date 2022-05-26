@@ -9,7 +9,7 @@ export class HeaderComponent implements OnInit {
 
   @Input() title: string = "";
 
-  usersPageStr: string = "Домашняя страница";
+  usersPageStr: string = "Пользователи";
   loginStr: string = "Вход";
 
   constructor() { }
