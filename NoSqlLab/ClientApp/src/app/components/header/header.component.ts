@@ -1,4 +1,6 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+
+import { AuthorizationService } from '../../services/authorization.service';
 
 @Component({
   selector: 'app-header',
@@ -12,7 +14,11 @@ export class HeaderComponent implements OnInit {
   usersPageStr: string = "Пользователи";
   loginStr: string = "Вход";
 
-  constructor() { }
+  get userNameStr(): string | undefined {
+    return this.authorizationService.username;
+  }
+
+  constructor(public authorizationService: AuthorizationService) { }
 
   ngOnInit(): void { }
 }

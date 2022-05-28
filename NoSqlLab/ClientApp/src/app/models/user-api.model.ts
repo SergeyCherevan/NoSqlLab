@@ -1,4 +1,4 @@
-export class UserApiModel {
-  username: string = "";
-  password: string = "";
+export interface UserApiModel {
+  username: string;
+  password: string;
 }

@@ -1,0 +1,16 @@
+<br />
+
+<div class="container">
+
+  <h1 class="text-center">{{title}}</h1>
+
+  <h4><b>{{usernameLabel}}</b> {{userModel.username}}</h4>
+  <h4><b>{{idLabel}}</b> {{userModel.id}}</h4>
+
+  <br />
+
+  <button type="button" class="btn btn-primary" *ngIf="isMyPage" (click)="logout()" >
+    {{logoutStr}}
+  </button>
+
+</div>

@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomePageComponent implements OnInit {
 
+  title: string[] = [ "Лабораторная работа", "по дисциплине «NoSQL-системы»" ];
+
   constructor() { }
 
   ngOnInit(): void {

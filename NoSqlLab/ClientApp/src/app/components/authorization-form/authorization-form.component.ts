@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+
 import { UserApiModel } from '../../models/user-api.model';
+
 import { DictionaryService } from '../../services/dictionary.service';
+import { AuthorizationService } from '../../services/authorization.service';
 import { RequestService } from '../../services/request.service';
 
 
@@ -8,7 +11,7 @@ import { RequestService } from '../../services/request.service';
 @Component({
   selector: 'authorization-form',
   templateUrl: './authorization-form.component.html',
-  providers: [DictionaryService, RequestService],
+  providers: [ DictionaryService ],
 })
 export class AuthorizationFormComponent implements OnInit {
 
@@ -22,8 +25,8 @@ export class AuthorizationFormComponent implements OnInit {
 
   readonly isLogin = 0; readonly isReg = 1;
   isLoginOrReg: number = this.isLogin;
-  loginOrRegTitle: string[] = ["Вход", "Регистрация"];
-  loginOrRegSubmitButton: string[] = ["Войти", "Зарегистрироваться"];
+  loginOrRegTitle: string[] = [ "Вход", "Регистрация" ];
+  loginOrRegSubmitButton: string[] = [ "Войти", "Зарегистрироваться" ];
 
   get formTitle(): string {
     return this.loginOrRegTitle[this.isLoginOrReg];
@@ -47,7 +50,7 @@ export class AuthorizationFormComponent implements OnInit {
   uncorrectPasswordStr: string = "Некорректный пароль. Не менее 4 буквенно-цифровых символов";
   uncorrectConfirmPasswordStr: string = "Пароли не совпадают";
 
-  serverError: Error|null = null;
+  serverError: Error | null = null;
   get firstSpanError(): string {
 
     return this.serverError ?
@@ -61,12 +64,12 @@ export class AuthorizationFormComponent implements OnInit {
 
 
 
-  constructor(public dictionaryService: DictionaryService, public requestService: RequestService) {
+  constructor(public dictionaryService: DictionaryService, public authorizationService: AuthorizationService) {
 
     dictionaryService.dictionary = new Map<string, string>([
-      ["User already exist", "Такой пользователь уже существует"],
-      ["Failed to fetch", "Ошибка соединения с сервером"],
-      ["User not exists", "Пользователь не найден"]
+      [ "User already exist", "Такой пользователь уже существует" ],
+      [ "Failed to fetch", "Ошибка соединения с сервером" ],
+      [ "User not exists", "Пользователь не найден" ],
     ]);
   }
 
@@ -77,25 +80,19 @@ export class AuthorizationFormComponent implements OnInit {
   }
 
   submitForm(): void {
+    let promise: Promise<any>;
+
     if (this.isLoginOrReg == this.isLogin) {
-      this.login();
-    } else if (this.isLoginOrReg == this.isReg) {
-      this.register();
+      promise = this.authorizationService.login(this.formData);
+    } else /*if (this.isLoginOrReg == this.isReg)*/ {
+      promise = this.authorizationService.register(this.formData);
     }
-  }
 
-  login(): void {
-    this.requestService
-      .post('/api/user/login', this.formData)
-      .then(() => alert(`login: ${document.cookie}`))
-      .catch((err: Error) => this.serverError = err);
-  }
-
-  register(): void {
-    this.requestService
-      .post('/api/user/register', this.formData)
-      .then(() => this.requestService.post('/api/user/login', this.formData))
-      .then(() => alert(`register: ${document.cookie}`))
+    promise
+      .then(() => {
+        let closeButton = document.getElementById("authorization-form-close-button");
+        closeButton?.click();
+      })
       .catch((err: Error) => this.serverError = err);
   }
 }

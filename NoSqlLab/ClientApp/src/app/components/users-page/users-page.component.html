@@ -1,7 +1,25 @@
+<br />
+
 <div class="container">
 
-  <h1>Users Page Title</h1>
+  <h1 class="text-center">{{title}}</h1>
 
-  <p>users page content</p>
+  <table class="table table-striped">
+
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Username</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let user of usersData" [style.cursor]="'pointer'" routerLink="/accountPage/{{user.username}}">
+        <td>{{user.id}}</td>
+        <td>{{user.username}}</td>
+      </tr>
+    </tbody>
+
+  </table>
 
 </div>

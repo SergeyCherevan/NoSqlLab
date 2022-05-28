@@ -10,11 +10,16 @@ import { UsersPageComponent } from './components/users-page/users-page.component
 import { FooterComponent } from './components/footer/footer.component';
 import { AuthorizationFormComponent } from './components/authorization-form/authorization-form.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { AccountPageComponent } from './components/account-page/account-page.component';
+
+import { AuthorizationService } from './services/authorization.service';
+import { RequestService } from './services/request.service';
 
 // определение маршрутов
 const appRoutes: Routes = [
   { path: '', component: HomePageComponent },
   { path: 'usersPage', component: UsersPageComponent },
+  { path: 'accountPage/:username', component: AccountPageComponent },
   { path: '**', component: NotFoundComponent },
 ];
 
@@ -24,6 +29,7 @@ const appRoutes: Routes = [
     HeaderComponent,
     HomePageComponent,
     UsersPageComponent,
+    AccountPageComponent,
     FooterComponent,
     AuthorizationFormComponent,
     NotFoundComponent,
@@ -31,7 +37,7 @@ const appRoutes: Routes = [
   imports: [
     BrowserModule, FormsModule, RouterModule.forRoot(appRoutes)
   ],
-  providers: [],
+  providers: [ AuthorizationService, RequestService ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }

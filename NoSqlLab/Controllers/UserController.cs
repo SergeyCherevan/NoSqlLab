@@ -67,6 +67,22 @@ namespace NoSqlLab.Controllers
 
 
 
+        [HttpGet]
+        [Route("getUser/{username}")]
+        public IActionResult getUser(string username)
+        {
+            User user = userRepository.GetByUsername(username);
+            UserResponseModel urm = new UserResponseModel
+            {
+                Id = user.Id,
+                Username = user.UserName
+            };
+
+            return Ok(urm);
+        }
+
+
+
         [HttpPost]
         [Route("login")]
         public IActionResult Login([FromBody] UserApiModel model)
@@ -81,7 +97,7 @@ namespace NoSqlLab.Controllers
 
             var identity = GetIdentity(user.UserName, "User");
 
-            var token = JWTTokenizer.GetEncodedJWT(identity, AuthOptions.Lifetime);
+            string token = JWTTokenizer.GetEncodedJWT(identity, AuthOptions.Lifetime);
 
             return new JsonResult(new
             {
