@@ -12,6 +12,8 @@ import { AccountPageComponent } from './components/account-page/account-page.com
 import { FooterComponent } from './components/footer/footer.component';
 import { AuthorizationFormComponent } from './components/authorization-form/authorization-form.component';
 import { ChangePasswordFormComponent } from './components/change-password-form/change-password-form.component';
+import { AddNoteFormComponent } from './components/add-note-form/add-note-form.component';
+import { NoteComponent } from './components/note/note.component';
 
 import { AuthorizationService } from './services/authorization.service';
 import { RequestService } from './services/request.service';
@@ -35,6 +37,8 @@ const appRoutes: Routes = [
     FooterComponent,
     AuthorizationFormComponent,
     ChangePasswordFormComponent,
+    NoteComponent,
+    AddNoteFormComponent,
   ],
   imports: [
     BrowserModule, FormsModule, RouterModule.forRoot(appRoutes)

@@ -6,6 +6,7 @@ import { AuthorizationService } from '../../services/authorization.service';
 import { RequestService } from '../../services/request.service';
 
 import { UserResponseModel } from '../../models/user-response.model'
+import { NoteModel } from '../../models/note.model'
 
 @Component({
   selector: 'account-page',
@@ -23,6 +24,7 @@ export class AccountPageComponent implements OnInit {
   subscription: Subscription;
 
   userModel: UserResponseModel = { id: "", username: "" };
+  noteItems: NoteModel[] = [];
 
   get myUsername(): string | undefined {
     return this.authorizationService.username;
@@ -47,7 +49,9 @@ export class AccountPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    this.requestService
+      .get(`/api/note/getByUserId/${this.userModel.id}`)
+      .then(respObj => this.noteItems = respObj);
   }
 
   logout(): void {
