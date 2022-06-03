@@ -15,7 +15,34 @@ export class RequestService {
     })
       .then(async response => {
         if (response.ok) {
-          return response.json();
+          try {
+            return response.json();
+          } catch {
+            return {};
+          }
+        } else {
+          throw Error((await response.json()).error);
+        }
+      });
+  }
+
+  put(address: string, postObj: object, jwt?: string) {
+
+    return fetch(address, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+        'Authorization': `Bearer ${jwt}`,
+      },
+      body: JSON.stringify(postObj),
+    })
+      .then(async response => {
+        if (response.ok) {
+          try {
+            return response.json();
+          } catch {
+            return { };
+          }
         } else {
           throw Error((await response.json()).error);
         }
@@ -33,7 +60,11 @@ export class RequestService {
     })
       .then(async response => {
         if (response.ok) {
-          return response.json();
+          try {
+            return response.json();
+          } catch {
+            return { };
+          }
         } else {
           throw Error((await response.json()).error);
         }

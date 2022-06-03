@@ -4,7 +4,6 @@ import { UserApiModel } from '../../models/user-api.model';
 
 import { DictionaryService } from '../../services/dictionary.service';
 import { AuthorizationService } from '../../services/authorization.service';
-import { RequestService } from '../../services/request.service';
 
 
 
@@ -83,9 +82,9 @@ export class AuthorizationFormComponent implements OnInit {
     let promise: Promise<any>;
 
     if (this.isLoginOrReg == this.isLogin) {
-      promise = this.authorizationService.login(this.formData);
+      promise = this.authorizationService.login(<UserApiModel>this.formData);
     } else /*if (this.isLoginOrReg == this.isReg)*/ {
-      promise = this.authorizationService.register(this.formData);
+      promise = this.authorizationService.register(<UserApiModel>this.formData);
     }
 
     promise

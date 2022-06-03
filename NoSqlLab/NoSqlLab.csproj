@@ -32,6 +32,18 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\src\app\app.component.spec.ts" />
+    <None Remove="ClientApp\src\app\components\account-page\account-page.component.spec.ts" />
+    <None Remove="ClientApp\src\app\components\authorization-form\authorization-form.component.spec.ts" />
+    <None Remove="ClientApp\src\app\components\change-password-form\change-password-form.component.spec.ts" />
+    <None Remove="ClientApp\src\app\components\footer\footer.component.spec.ts" />
+    <None Remove="ClientApp\src\app\components\header\header.component.spec.ts" />
+    <None Remove="ClientApp\src\app\components\home-page\home-page.component.spec.ts" />
+    <None Remove="ClientApp\src\app\components\not-found-page\not-found-page.component.spec.ts" />
+    <None Remove="ClientApp\src\app\components\users-page\users-page.component.spec.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Controllers\" />
   </ItemGroup>
 

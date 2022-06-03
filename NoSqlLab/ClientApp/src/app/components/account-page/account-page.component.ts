@@ -17,6 +17,7 @@ export class AccountPageComponent implements OnInit {
   idLabel: string = "ID пользователя:";
   usernameLabel: string = "Имя пользователя:";
   logoutStr: string = "Выйти";
+  changePasswordStr: string = "Изменить пароль";
 
   
   subscription: Subscription;

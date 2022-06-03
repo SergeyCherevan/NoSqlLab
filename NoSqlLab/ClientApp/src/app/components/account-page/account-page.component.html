@@ -9,8 +9,18 @@
 
   <br />
 
-  <button type="button" class="btn btn-primary" *ngIf="isMyPage" (click)="logout()" >
-    {{logoutStr}}
-  </button>
+  <div *ngIf="isMyPage">
+    <button type="button" class="btn btn-primary"
+            [style.margin]="'0 .5vw 0 0'"
+            (click)="logout()">
+      {{logoutStr}}
+    </button>
+
+    <button type="button" class="btn btn-primary"            
+            [style.margin]="'0 0 0 .5vw'"
+            data-bs-toggle="modal" data-bs-target="#change-password-form-modal">
+      {{changePasswordStr}}
+    </button>
+  </div>
 
 </div>

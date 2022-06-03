@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { RequestService } from "./request.service";
 
 import { UserApiModel } from '../models/user-api.model';
+import { ChangePasswordModel } from '../models/change-password.model';
 
 @Injectable()
 export class AuthorizationService {
@@ -80,5 +81,18 @@ export class AuthorizationService {
     localStorage.removeItem('id');
     localStorage.removeItem('username');
     localStorage.removeItem('password');
+  }
+
+  changePassword(formData: ChangePasswordModel): Promise<any> {
+    return this.requestService
+      .put('/api/user/changePassword', {
+        oldPassword: formData.oldPassword,
+        newPassword: formData.newPassword,
+      }, this.jwtString)
+      .catch(() => { })
+      .then(() => this.login({
+        username: this.username!,
+        password: formData.newPassword,
+      }));
   }
 }
