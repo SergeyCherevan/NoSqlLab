@@ -24,17 +24,17 @@ namespace NoSqlLab.Controllers
         }
 
         [HttpGet]
-        [Route("get")]
+        [Route("get/{id}")]
         public IActionResult Get(string id)
         {
-            return Ok(noteRepository.GetById(new Guid(id)));
+            return Ok(noteRepository.GetById(Guid.Parse(id)));
         }
 
         [HttpGet]
-        [Route("getByUserId")]
-        public IActionResult GetByUserId(Guid id)
+        [Route("getByUserId/{id}")]
+        public IActionResult GetByUserId(string id)
         {
-            return Ok(noteRepository.GetByUserId(id));
+            return Ok(noteRepository.GetByUserId(Guid.Parse(id)));
         }
 
         [HttpPost]
@@ -77,7 +77,7 @@ namespace NoSqlLab.Controllers
         public IActionResult Delete(string id)
         {
             User user = userRepository.GetByUsername(User.Identity.Name);
-            Note note = noteRepository.GetById(new Guid(id));
+            Note note = noteRepository.GetById(Guid.Parse(id));
 
             if (note.UserId != user.Id)
             {
