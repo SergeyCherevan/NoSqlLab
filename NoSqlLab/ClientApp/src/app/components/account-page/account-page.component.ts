@@ -49,7 +49,7 @@ export class AccountPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    setTimeout(() => this.downloadNotes(), 1000);
+    setInterval(() => this.downloadNotes(), 1000);
   }
 
   downloadNotes(): void {

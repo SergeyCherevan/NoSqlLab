@@ -34,7 +34,16 @@ namespace NoSqlLab.Controllers
         [Route("getByUserId/{id}")]
         public IActionResult GetByUserId(string id)
         {
-            return Ok(noteRepository.GetByUserId(Guid.Parse(id)));
+            return Ok(
+                noteRepository.GetByUserId(Guid.Parse(id))
+                .Select(note => new NoteResponseModel
+                {
+                    Id = note.Id,
+                    Title = note.Title,
+                    Text = note.Text,
+                    UserName = userRepository.GetById(note.UserId).UserName,
+                    LastUpdate = note.LastUpdate,
+                }));
         }
 
         [HttpPost]
