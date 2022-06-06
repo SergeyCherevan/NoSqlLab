@@ -7,8 +7,6 @@
   <h4><b>{{usernameLabel}}</b> {{userModel.username}}</h4>
   <h4><b>{{idLabel}}</b> {{userModel.id}}</h4>
 
-  <br />
-
   <div *ngIf="isMyPage">
 
     <hr class="bg-danger border-2 border-top border-danger">
@@ -31,7 +29,7 @@
 
   <div *ngFor="let noteItem of noteItems">
 
-    <note [noteModel]="noteItem"></note>
+    <note [noteModel]="noteItem" (click)="goNotePage(noteItem.id)" [style.cursor]="'pointer'"></note>
 
     <br />
 

@@ -27,7 +27,16 @@ namespace NoSqlLab.Controllers
         [Route("get/{id}")]
         public IActionResult Get(string id)
         {
-            return Ok(noteRepository.GetById(Guid.Parse(id)));
+            Note note = noteRepository.GetById(Guid.Parse(id));
+
+            return Ok(new NoteResponseModel
+            {
+                Id = note.Id,
+                Title = note.Title,
+                Text = note.Text,
+                UserName = userRepository.GetById(note.UserId).UserName,
+                LastUpdate = note.LastUpdate,
+            });
         }
 
         [HttpGet]

@@ -41,6 +41,7 @@
     <None Remove="ClientApp\src\app\components\header\header.component.spec.ts" />
     <None Remove="ClientApp\src\app\components\home-page\home-page.component.spec.ts" />
     <None Remove="ClientApp\src\app\components\not-found-page\not-found-page.component.spec.ts" />
+    <None Remove="ClientApp\src\app\components\note-page\note-page.component.spec.ts" />
     <None Remove="ClientApp\src\app\components\note\note.component.spec.ts" />
     <None Remove="ClientApp\src\app\components\users-page\users-page.component.spec.ts" />
   </ItemGroup>

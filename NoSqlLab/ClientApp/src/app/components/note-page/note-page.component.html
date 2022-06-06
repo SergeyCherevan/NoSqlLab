@@ -1,0 +1,26 @@
+<br />
+
+<div class="container">
+
+  <h1 class="text-center">{{title}}</h1>
+
+  <h4><b>{{idLabel}}</b> {{noteModel.id}}</h4>
+  <h4><b>{{authorLabel}}</b> <a routerLink="/accountPage/{{noteModel.userName}}">{{noteModel.userName}}</a></h4>
+
+  <div *ngIf="isMyPage">
+
+    <hr class="bg-danger border-2 border-top border-danger">
+
+    <button type="button" class="btn btn-primary"
+            [style.margin]="'0 .5vw 0 0'"
+            (click)="deleteNote()">
+      {{deleteStr}}
+    </button>
+
+    <hr class="bg-danger border-2 border-top border-danger">
+
+  </div>
+
+  <note [noteModel]="noteModel"></note>
+
+</div>

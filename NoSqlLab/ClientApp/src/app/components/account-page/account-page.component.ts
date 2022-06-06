@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { AuthorizationService } from '../../services/authorization.service';
@@ -12,7 +12,7 @@ import { NoteModel } from '../../models/note.model'
   selector: 'account-page',
   templateUrl: './account-page.component.html',
 })
-export class AccountPageComponent implements OnInit {
+export class AccountPageComponent implements OnInit, OnDestroy {
 
   title: string = "Страница пользователя";
   idLabel: string = "ID пользователя:";
@@ -36,6 +36,7 @@ export class AccountPageComponent implements OnInit {
 
   constructor(
     public activateRoute: ActivatedRoute,
+    public router: Router,
     public authorizationService: AuthorizationService,
     public requestService: RequestService,
   ) {
@@ -48,8 +49,14 @@ export class AccountPageComponent implements OnInit {
     this.authorizationService.loginByLocalStorageData();
   }
 
+  downloadNotesInterval: number = 0;
+
   ngOnInit(): void {
-    setInterval(() => this.downloadNotes(), 1000);
+    this.downloadNotesInterval = window.setInterval(() => this.downloadNotes(), 1000);
+  }
+
+  ngOnDestroy(): void {
+    window.clearInterval(this.downloadNotesInterval);
   }
 
   downloadNotes(): void {
@@ -60,5 +67,9 @@ export class AccountPageComponent implements OnInit {
 
   logout(): void {
     this.authorizationService.logout();
+  }
+
+  goNotePage(id: string): void {
+    this.router.navigateByUrl(`/notePage/${id}`);
   }
 }
