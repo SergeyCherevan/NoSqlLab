@@ -90,7 +90,7 @@ namespace NoSqlLab.Controllers
         }
 
         [HttpDelete]
-        [Route("delete")]
+        [Route("delete/{id}")]
         [Authorize]
         public IActionResult Delete(string id)
         {

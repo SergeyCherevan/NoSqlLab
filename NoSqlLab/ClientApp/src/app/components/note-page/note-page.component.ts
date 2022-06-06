@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { AuthorizationService } from '../../services/authorization.service';
@@ -40,6 +40,7 @@ export class NotePageComponent implements OnInit, OnDestroy {
 
   constructor(
     public activateRoute: ActivatedRoute,
+    public router: Router,
     public authorizationService: AuthorizationService,
     public requestService: RequestService,
   ) {
@@ -68,6 +69,15 @@ export class NotePageComponent implements OnInit, OnDestroy {
   }
 
   deleteNote(): void {
-    
+
+    this.ngOnDestroy();
+
+    this.requestService
+      .delete(
+        `/api/note/delete/${this.noteModel.id}`,
+        undefined,
+        this.authorizationService.jwtString)
+      .catch(() => { })
+      .then(() => this.router.navigateByUrl(`/accountPage/${this.noteModel.userName}`));
   }
 }
