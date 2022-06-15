@@ -18,6 +18,7 @@ import { NoteComponent } from './components/note/note.component';
 
 import { AuthorizationService } from './services/authorization.service';
 import { RequestService } from './services/request.service';
+import { EditNoteFormComponent } from './components/edit-note-form/edit-note-form.component';
 
 // определение маршрутов
 const appRoutes: Routes = [
@@ -42,6 +43,7 @@ const appRoutes: Routes = [
     NoteComponent,
     AddNoteFormComponent,
     NotePageComponent,
+    EditNoteFormComponent,
   ],
   imports: [
     BrowserModule, FormsModule, RouterModule.forRoot(appRoutes)

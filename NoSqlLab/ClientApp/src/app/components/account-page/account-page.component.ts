@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
@@ -6,13 +6,13 @@ import { AuthorizationService } from '../../services/authorization.service';
 import { RequestService } from '../../services/request.service';
 
 import { UserResponseModel } from '../../models/user-response.model'
-import { NoteModel } from '../../models/note.model'
+import { NoteResponseModel } from '../../models/note-response.model'
 
 @Component({
   selector: 'account-page',
   templateUrl: './account-page.component.html',
 })
-export class AccountPageComponent implements OnInit, OnDestroy {
+export class AccountPageComponent implements OnInit {
 
   title: string = "Страница пользователя";
   idLabel: string = "ID пользователя:";
@@ -24,7 +24,7 @@ export class AccountPageComponent implements OnInit, OnDestroy {
   subscription: Subscription;
 
   userModel: UserResponseModel = { id: "", username: "" };
-  noteItems: NoteModel[] = [];
+  noteItems: NoteResponseModel[] = [];
 
   get myUsername(): string | undefined {
     return this.authorizationService.username;
@@ -40,24 +40,19 @@ export class AccountPageComponent implements OnInit, OnDestroy {
     public authorizationService: AuthorizationService,
     public requestService: RequestService,
   ) {
-    this.subscription = activateRoute.params.subscribe(params => this.userModel.username = params['username'])!;
+    this.subscription = activateRoute.params.subscribe(params => {
+      this.userModel.username = params['username'];
 
-    this.requestService
-      .get(`/api/user/getUser/${this.userModel.username}`)
-      .then(respObj => this.userModel = respObj);
+      this.requestService
+        .get(`/api/user/getUser/${this.userModel.username}`)
+        .then(respObj => this.userModel = respObj)
+        .then(() => this.downloadNotes());
 
-    this.authorizationService.loginByLocalStorageData();
+      this.authorizationService.loginByLocalStorageData()
+    })!;
   }
 
-  downloadNotesInterval: number = 0;
-
-  ngOnInit(): void {
-    this.downloadNotesInterval = window.setInterval(() => this.downloadNotes(), 1000);
-  }
-
-  ngOnDestroy(): void {
-    window.clearInterval(this.downloadNotesInterval);
-  }
+  ngOnInit(): void { }
 
   downloadNotes(): void {
     this.requestService

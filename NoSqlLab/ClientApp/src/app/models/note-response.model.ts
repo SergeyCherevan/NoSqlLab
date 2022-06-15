@@ -1,4 +1,4 @@
-export interface NoteModel {
+export interface NoteResponseModel {
   id: string;
   title: string;
   text: string;

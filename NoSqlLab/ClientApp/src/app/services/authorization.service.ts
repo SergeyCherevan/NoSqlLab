@@ -45,8 +45,6 @@ export class AuthorizationService {
   }
 
   saveDataInLocalStorage(): void {
-    console.log(this.jwtObject);
-
     localStorage.setItem('username', this.username!);
     localStorage.setItem('password', this.password!);
   }

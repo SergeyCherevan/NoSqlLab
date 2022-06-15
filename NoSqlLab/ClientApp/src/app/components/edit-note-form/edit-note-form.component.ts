@@ -1,29 +1,31 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
-import { NoteApiModel } from '../../models/note-api.model';
+import { EditNoteModel } from '../../models/edit-note.model';
 
 import { DictionaryService } from '../../services/dictionary.service';
 import { AuthorizationService } from '../../services/authorization.service';
 import { RequestService } from '../../services/request.service';
 
 @Component({
-  selector: 'add-note-form',
-  templateUrl: './add-note-form.component.html',
+  selector: 'edit-note-form',
+  templateUrl: './edit-note-form.component.html',
   providers: [ DictionaryService ],
 })
-export class AddNoteFormComponent implements OnInit {
+export class EditNoteFormComponent implements OnInit {
 
-  formData: NoteApiModel = {
+  @Input() @Output()
+  formData: EditNoteModel = {
+    id: "",
     title: "",
     text: "",
   };
 
-  formTitle: string = "Добавление заметки";
+  formTitle: string = "Редактирование заметки";
 
   titleStr: string = "Заголовок заметки";
   textStr: string = "Текст заметки";
 
-  formSubmitButton: string = "Добавить";
+  formSubmitButton: string = "Редактировать";
 
   emptyTitleStr: string = "Отсутствует заколовок";
   emptyTextStr: string = "Отсутствует текст";
@@ -32,7 +34,7 @@ export class AddNoteFormComponent implements OnInit {
   get firstSpanError(): string {
 
     return this.serverError ?
-        this.dictionaryService.get(this.serverError.message)
+      this.dictionaryService.get(this.serverError.message)
       : this.emptyTitleStr;
   }
 
@@ -42,14 +44,16 @@ export class AddNoteFormComponent implements OnInit {
     public requestService: RequestService,
   ) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
 
-  @Output() onNoteAdded = new EventEmitter<boolean>();
+  }
+
+  @Output() onNoteEdited = new EventEmitter<boolean>();
 
   submitForm(): void {
     this.requestService
-      .post('/api/note/add/', this.formData, this.authorizationService.jwtString)
-      .then(() => this.onNoteAdded.emit());
+      .put('/api/note/edit/', this.formData, this.authorizationService.jwtString)
+      .then(() => this.onNoteEdited.emit());
   }
 
   resetServerError(): void {

@@ -1,18 +1,17 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { AuthorizationService } from '../../services/authorization.service';
 import { RequestService } from '../../services/request.service';
 
-import { UserResponseModel } from '../../models/user-response.model'
-import { NoteModel } from '../../models/note.model'
+import { NoteResponseModel } from '../../models/note-response.model'
 
 @Component({
   selector: 'note-page',
   templateUrl: './note-page.component.html',
 })
-export class NotePageComponent implements OnInit, OnDestroy {
+export class NotePageComponent implements OnInit {
 
   title: string = "Страница заметки";
   idLabel: string = "ID заметки: ";
@@ -20,7 +19,7 @@ export class NotePageComponent implements OnInit, OnDestroy {
   deleteStr: string = "Удалить заметку";
 
 
-  noteModel: NoteModel = {
+  noteModel: NoteResponseModel = {
     id: "",
     title: "",
     text: "",
@@ -49,19 +48,11 @@ export class NotePageComponent implements OnInit, OnDestroy {
     this.authorizationService.loginByLocalStorageData();
   }
 
-  downloadNotesInterval: number = 0;
-
   ngOnInit(): void {
-    this.downloadNotesInterval = window.setInterval(() => this.downloadNote(), 1000);
-  }
-
-  ngOnDestroy(): void {
-    window.clearInterval(this.downloadNotesInterval);
+    this.downloadNote()
   }
 
   downloadNote(): void {
-
-    console.log(this.noteModel.id);
 
     this.requestService
       .get(`/api/note/get/${this.noteModel.id}`)
@@ -69,8 +60,6 @@ export class NotePageComponent implements OnInit, OnDestroy {
   }
 
   deleteNote(): void {
-
-    this.ngOnDestroy();
 
     this.requestService
       .delete(

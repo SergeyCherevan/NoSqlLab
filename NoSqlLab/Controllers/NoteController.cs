@@ -72,21 +72,23 @@ namespace NoSqlLab.Controllers
             }));
         }
 
-        [HttpPost]
+        [HttpPut]
         [Route("edit")]
         [Authorize]
         public IActionResult Edit(EditNoteModel enm)
         {
             User user = userRepository.GetByUsername(User.Identity.Name);
-            Note note = noteRepository.GetById(enm.Id);
+            Note note = noteRepository.GetById(Guid.Parse(enm.Id));
 
             if (note.UserId != user.Id)
             {
                 return BadRequest("This note is not yours");
             }
 
+            note.Title = enm.Title;
             note.Text = enm.Text;
-            return Ok(noteRepository.Edit(enm.Id, note));
+            note.LastUpdate = DateTime.UtcNow;
+            return Ok(noteRepository.Edit(note.Id, note));
         }
 
         [HttpDelete]

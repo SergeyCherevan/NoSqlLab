@@ -37,6 +37,7 @@
     <None Remove="ClientApp\src\app\components\add-note-form\add-note-form.component.spec.ts" />
     <None Remove="ClientApp\src\app\components\authorization-form\authorization-form.component.spec.ts" />
     <None Remove="ClientApp\src\app\components\change-password-form\change-password-form.component.spec.ts" />
+    <None Remove="ClientApp\src\app\components\edit-note-form\edit-note-form.component.spec.ts" />
     <None Remove="ClientApp\src\app\components\footer\footer.component.spec.ts" />
     <None Remove="ClientApp\src\app\components\header\header.component.spec.ts" />
     <None Remove="ClientApp\src\app\components\home-page\home-page.component.spec.ts" />

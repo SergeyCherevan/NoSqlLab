@@ -23,4 +23,12 @@
 
   <note [noteModel]="noteModel"></note>
 
+  <div *ngIf="isMyPage">
+
+    <hr class="bg-danger border-2 border-top border-danger">
+
+    <edit-note-form [formData]="noteModel" (onNoteEdited)="downloadNote()"></edit-note-form>
+
+  </div>
+
 </div>

@@ -8,7 +8,8 @@ namespace NoSqlLab.Model
 {
     public class EditNoteModel
     {
-        public Guid Id { get; set; }
+        public string Id { get; set; }
+        public string Title { get; set; }
         public string Text { get; set; }
     }
 }
